@@ -12,7 +12,9 @@
             Grid.Row="0"
             Style="{StaticResource InfoField_Border_Style}">
             <Grid RowDefinitions="*,Auto">
-                <cont:PieChart Grid.Row="0"/>
+                <cont:PieChart 
+                    x:Name="IncomesPieChart"
+                    Grid.Row="0"/>
                 <Button Grid.Row="1"/>
             </Grid>
         </Border>
@@ -20,7 +22,7 @@
             Grid.Row="1"
             Style="{StaticResource InfoField_Border_Style}">
             <Grid RowDefinitions="*,Auto">
-                <cont:PieChart Grid.Row="0"/>
+                <!--<cont:PieChart Grid.Row="0"/>-->
                 <Button Grid.Row="1"/>
             </Grid>
         </Border>

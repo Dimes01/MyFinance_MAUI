@@ -7,26 +7,13 @@ namespace MyFinance.Controls;
 
 public partial class PieChart : ContentView
 {
-    /// <summary>
-    /// Вход - список с числами для формирования диаграммы
-    ///  
-    /// TODO:
-    /// 1. Реализовать формирование диаграммы на основе списка значений 
-    /// </summary>
-
     public PieChart()
 	{
 		InitializeComponent();
         Center = new Point(OuterRadius, OuterRadius);
-        Volumes = new() { 3000 };
-        //Volumes = new() { 3000, 4000 };
-        //Volumes = new() { 3000, 4000, 5000 };
-        //Volumes = new() { 3000, 4000, 5000, 1000 };
-        //Volumes = new() { 3000, 4000, 5000, 1000, 500 };
-        //Volumes = new() { 3000, 4000, 5000, 1000, 500, 1500 };
     }
 
-    private static SolidColorBrush[] Colors { get; } = new SolidColorBrush[] { 
+    private static SolidColorBrush[] Brushes { get; } = new SolidColorBrush[] { 
         new(new Color(255, 69, 56)), new(new Color(255, 188, 56)), new(new Color(202, 255, 56)), new(new Color(83, 255, 56)), new(new Color(56, 255, 149)), 
         new(new Color(56, 242, 255)), new(new Color(56, 123, 255)), new(new Color(109, 56, 255)), new(new Color(228, 56, 255)), new(new Color(255, 56, 162)) 
     };
@@ -63,56 +50,38 @@ public partial class PieChart : ContentView
     private void UpdateLayout()
     {
         PathLayout.Children.Clear();
-        double prevAngleRadian = 0;
-        double curAngleRadian = 0; 
-        for (int i = 0, j = 0; i < Parts.Length; ++i, j = j < Colors.Length ? j + 1 : 0)
+        double prevAngleRadian = 0, curAngleRadian;
+        if (Parts.Length > 1)
         {
-            curAngleRadian = Parts[i];
-            var brush = Colors[j];
-            var part = CreatePath(ref prevAngleRadian, ref curAngleRadian, ref brush);
-            PathLayout.Children.Add(part);
-            prevAngleRadian = curAngleRadian;
+            for (int i = 0, j = 0; i < Parts.Length; ++i, j = j < Brushes.Length ? j + 1 : 0)
+            {
+                curAngleRadian = Parts[i] + prevAngleRadian;
+                PathLayout.Children.Add(CreatePath(prevAngleRadian, curAngleRadian, Brushes[j]));
+                prevAngleRadian = curAngleRadian;
+            }
+        }
+        else
+        {
+            PathLayout.Children.Add(CreatePath(0, Math.PI, Brushes[0]));
+            PathLayout.Children.Add(CreatePath(Math.PI, Math.Tau, Brushes[0]));
         }
     }
 
-    private Path CreatePath(ref double angleStartPartRadian, ref double angleEndPartRadian, ref SolidColorBrush brush)
+    private Path CreatePath(in double angleStartPartRadian, in double angleEndPartRadian, in SolidColorBrush brush)
     {
         var segments = new PathSegmentCollection();
-        bool isLargeArc = angleEndPartRadian - angleStartPartRadian > Math.Tau;
+        bool isLargeArc = angleEndPartRadian - angleStartPartRadian > Math.PI;
 
-
-        var nextPoint = new Point(
-            Center.X + InnerRadius * Math.Cos(angleEndPartRadian),
-            Center.Y - InnerRadius * Math.Sin(angleEndPartRadian));
-        segments.Add(new ArcSegment
-        {
-            Point = nextPoint,
-            Size = new Size(InnerRadius),
-            SweepDirection = SweepDirection.Clockwise
-        });
-
-        nextPoint = new Point(
-            Center.X + OuterRadius * Math.Cos(angleEndPartRadian),
-            Center.Y - OuterRadius * Math.Sin(angleEndPartRadian));
-        segments.Add(new LineSegment { Point = nextPoint });
-
-
-        nextPoint = new Point(
-            Center.X + OuterRadius * Math.Cos(angleStartPartRadian),
-            Center.Y - OuterRadius * Math.Sin(angleStartPartRadian));
-        segments.Add(new ArcSegment
-        {
-            Point = nextPoint,
-            Size = new Size(OuterRadius),
-            SweepDirection = SweepDirection.Clockwise
-        });
+        segments.Add(Arc(InnerRadius, angleEndPartRadian, isLargeArc, SweepDirection.Clockwise));
+        segments.Add(Line(OuterRadius, angleEndPartRadian));
+        segments.Add(Arc(OuterRadius, angleStartPartRadian, isLargeArc, SweepDirection.CounterClockwise));
 
         var data = new PathGeometry();
         data.Figures.Add(new PathFigure
         {
             StartPoint = new Point(
-                Center.X + InnerRadius * Math.Cos(angleStartPartRadian),
-                Center.Y - InnerRadius * Math.Sin(angleStartPartRadian)),
+                Center.X + InnerRadius * Math.Sin(angleStartPartRadian),
+                Center.Y - InnerRadius * Math.Cos(angleStartPartRadian)),
             Segments = segments,
             IsClosed = true,
             IsFilled = true
@@ -125,4 +94,16 @@ public partial class PieChart : ContentView
         };
         return path;
     }
+
+    private ArcSegment Arc(in double radius, in double anglePartRadian, in bool isLargeArc, in SweepDirection direction) => new()
+    {
+        Point = NextPoint(radius, anglePartRadian),
+        Size = new Size(radius),
+        IsLargeArc = isLargeArc,
+        SweepDirection = direction
+    };
+
+    private LineSegment Line(in double radius, in double anglePartRadian) => new() { Point = NextPoint(radius, anglePartRadian) };
+
+    private Point NextPoint(in double radius, in double anglePartRadian) => new(Center.X + radius * Math.Sin(anglePartRadian), Center.Y - radius * Math.Cos(anglePartRadian));
 }
