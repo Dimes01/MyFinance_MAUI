@@ -1,8 +1,28 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MyFinance.MainPage">
-    <Grid>
-        
+             xmlns:cont="clr-namespace:MyFinance.Controls"
+             x:Class="MyFinance.MainPage"
+             BackgroundColor="{AppThemeBinding Light={StaticResource Primary_Light}, Dark={StaticResource Primary_Dark}}">
+    <Grid
+        Padding="10"
+        RowDefinitions="*,*"
+        RowSpacing="10">
+        <Border
+            Grid.Row="0"
+            Style="{StaticResource InfoField_Border_Style}">
+            <Grid RowDefinitions="*,Auto">
+                <cont:PieChart Grid.Row="0"/>
+                <Button Grid.Row="1"/>
+            </Grid>
+        </Border>
+        <Border
+            Grid.Row="1"
+            Style="{StaticResource InfoField_Border_Style}">
+            <Grid RowDefinitions="*,Auto">
+                <cont:PieChart Grid.Row="0"/>
+                <Button Grid.Row="1"/>
+            </Grid>
+        </Border>
     </Grid>
 </ContentPage>

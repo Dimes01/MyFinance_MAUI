@@ -4,7 +4,29 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
-    <Color x:Key="Primary">#512BD4</Color>
+    <x:Double x:Key="FontSize_Header">20</x:Double>
+
+    <!--#region LightTheme-->
+    
+    <Color x:Key="Primary_Light">#D9D6CD</Color>
+    <Color x:Key="Secondary_Light">#9E8635</Color>
+    <Color x:Key="Tertiary_Light">#E9CC4B</Color>
+
+    <!--#endregion-->
+    
+    <!--#region DarkTheme-->
+    
+    <Color x:Key="Primary_Dark">#202B34</Color>
+    <Color x:Key="Secondary_Dark">#C7C74C</Color>
+    <Color x:Key="Tertiary_Dark">#9E8635</Color>
+    
+    <!--#endregion-->
+
+
+    <SolidColorBrush x:Key="Header_Brush" Color="{AppThemeBinding Light={StaticResource Secondary_Light}, Dark={StaticResource Secondary_Dark}}"/>
+    
+
+    <!--<Color x:Key="Primary">#512BD4</Color>
     <Color x:Key="Secondary">#DFD8F7</Color>
     <Color x:Key="Tertiary">#2B0B98</Color>
     <Color x:Key="White">White</Color>
@@ -39,6 +61,6 @@
     <Color x:Key="Cyan300Accent">#C3F2F4</Color>
     <Color x:Key="Blue100Accent">#3E8EED</Color>
     <Color x:Key="Blue200Accent">#72ACF1</Color>
-    <Color x:Key="Blue300Accent">#A7CBF6</Color>
+    <Color x:Key="Blue300Accent">#A7CBF6</Color>-->
 
 </ResourceDictionary>

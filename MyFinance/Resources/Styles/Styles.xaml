@@ -4,7 +4,22 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
-    <Style TargetType="ActivityIndicator">
+    <Style x:Key="InfoField_Border_Style" TargetType="Border">
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource Primary_Light}, Dark={StaticResource Primary_Dark}}"/>
+        <Setter Property="Padding" Value="10"/>
+        <Setter Property="StrokeShape" Value="{RoundRectangle CornerRadius=10}"/>
+        <Setter Property="Shadow">
+            <Setter.Value>
+                <Shadow 
+                    Brush="Black"
+                    Radius="20"
+                    Opacity="0.4"
+                    Offset="2,2"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--<Style TargetType="ActivityIndicator">
         <Setter Property="Color" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
     </Style>
 
@@ -400,6 +415,6 @@
         <Setter Property="BarTextColor" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
         <Setter Property="UnselectedTabColor" Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray950}}" />
         <Setter Property="SelectedTabColor" Value="{AppThemeBinding Light={StaticResource Gray950}, Dark={StaticResource Gray200}}" />
-    </Style>
+    </Style>-->
 
 </ResourceDictionary>
