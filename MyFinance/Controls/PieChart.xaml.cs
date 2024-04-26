@@ -10,7 +10,8 @@ public partial class PieChart : ContentView
     public PieChart()
 	{
 		InitializeComponent();
-        Center = new Point(OuterRadius, OuterRadius);
+
+        //Center = new Point(OuterRadius, OuterRadius);
     }
 
     private static SolidColorBrush[] Brushes { get; } = new SolidColorBrush[] { 
@@ -106,4 +107,13 @@ public partial class PieChart : ContentView
     private LineSegment Line(in double radius, in double anglePartRadian) => new() { Point = NextPoint(radius, anglePartRadian) };
 
     private Point NextPoint(in double radius, in double anglePartRadian) => new(Center.X + radius * Math.Sin(anglePartRadian), Center.Y - radius * Math.Cos(anglePartRadian));
+
+    private void ContentView_SizeChanged(object sender, EventArgs e)
+    {
+        OuterRadius = Width > Height ? Height / 2 : Width / 2;
+        InnerRadius = OuterRadius - 20;
+        Center = new Point(OuterRadius, OuterRadius);
+        
+        UpdateLayout();
+    }
 }
