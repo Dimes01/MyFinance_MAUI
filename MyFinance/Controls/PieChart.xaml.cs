@@ -18,7 +18,6 @@ public partial class PieChart : ContentView
     };
     private double InnerRadius { get; set; } = 80;
     private double OuterRadius { get; set; } = 100;
-    private double Thickness { get; set; } = 30;
     private double SumVolumes { get; set; } = 0;
     private Point Center { get; set; }
     private double[] Parts { get; set; }
@@ -37,6 +36,20 @@ public partial class PieChart : ContentView
         if (bindable is not PieChart pc) return;
         pc.UpdateParts();
         pc.UpdateSumInfo(pc.SumVolumes.ToString());
+        pc.UpdateLayout();
+    }
+
+
+    public static readonly BindableProperty ThicknessPieChartProperty = BindableProperty.Create(nameof(ThicknessPieChart), typeof(double), typeof(PieChart), 25.0, propertyChanged: OnThicknessPieChartChanged);
+    public double ThicknessPieChart
+    {
+        get => (double)GetValue(ThicknessPieChartProperty);
+        set => SetValue(ThicknessPieChartProperty, value);
+    }
+    private static void OnThicknessPieChartChanged(BindableObject bindable, object oldValue, object newValue)
+    {
+        if (newValue is not double newThickness) return;
+        if (bindable is not PieChart pc) return;
         pc.UpdateLayout();
     }
 
@@ -130,7 +143,7 @@ public partial class PieChart : ContentView
     private void ContentView_SizeChanged(object sender, EventArgs e)
     {
         OuterRadius = Width > Height ? Height / 2 : Width / 2;
-        InnerRadius = OuterRadius - Thickness;
+        InnerRadius = OuterRadius - ThicknessPieChart;
         Center = new Point(OuterRadius, OuterRadius);
         UpdateLayout();
         PathLayout.Margin = new Thickness(Width / 2 - OuterRadius, Height / 2 - OuterRadius);

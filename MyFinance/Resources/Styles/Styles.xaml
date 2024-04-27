@@ -14,14 +14,13 @@
         Opacity="0.4"
         Offset="2,2"/>
 
-    <Shadow
-        x:Key="MainInnerShadow"
-        Brush="White"
-        Radius="20"
-        Opacity="0.4"
-        Offset="-2,-2"/>
-
-
+    <Style x:Key="Header_Label_Style" TargetType="Label">
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Secondary_Light}, Dark={StaticResource Secondary_Dark}}"/>
+        <Setter Property="FontSize" Value="{StaticResource FontSize_Header}"/>
+        <Setter Property="FontAttributes" Value="Bold"/>
+        <Setter Property="HorizontalOptions" Value="Center"/>
+    </Style>
+    
     <Style x:Key="InfoField_Border_Style" TargetType="Border">
         <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource Primary_Light}, Dark={StaticResource Primary_Dark}}"/>
         <Setter Property="Padding" Value="10"/>
