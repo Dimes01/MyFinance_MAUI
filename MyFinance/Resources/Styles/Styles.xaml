@@ -2,7 +2,8 @@
 <?xaml-comp compile="true" ?>
 <ResourceDictionary 
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:cont="clr-namespace:MyFinance.Controls">
 
     <Style x:Key="InfoField_Border_Style" TargetType="Border">
         <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource Primary_Light}, Dark={StaticResource Primary_Dark}}"/>
@@ -18,6 +19,10 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+    <!--<Style x:Key="PieChart_Style" TargetType="cont:PieChart">
+        <Setter Property="HorizontalOptions" Value="Center"/>
+    </Style>-->
 
     <!--<Style TargetType="ActivityIndicator">
         <Setter Property="Color" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />

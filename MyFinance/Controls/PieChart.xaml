@@ -5,11 +5,13 @@
              SizeChanged="ContentView_SizeChanged">
     <Grid>
         <Grid
-            x:Name="InfoLayout">
+            x:Name="InfoLayout"
+            HorizontalOptions="Center">
             
         </Grid>
         <Grid
-            x:Name="PathLayout">
+            x:Name="PathLayout"
+            HorizontalOptions="Center">
             <!--<Path
                 Stroke="Red"
                 StrokeThickness="10">
