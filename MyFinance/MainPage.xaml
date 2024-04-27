@@ -15,16 +15,25 @@
                 <cont:PieChart 
                     x:Name="IncomesPieChart"
                     Grid.Row="0"
-                    />
-                <Button Grid.Row="1"/>
+                    PeriodInfo="27.03.2024 - 27.04.2024"/>
+                <Button 
+                    Grid.Row="1"
+                    Text="Подробнее"
+                    Style="{StaticResource DetailedButton}"/>
             </Grid>
         </Border>
         <Border
             Grid.Row="1"
             Style="{StaticResource InfoField_Border_Style}">
             <Grid RowDefinitions="*,Auto">
-                <!--<cont:PieChart Grid.Row="0"/>-->
-                <Button Grid.Row="1"/>
+                <cont:PieChart 
+                    x:Name="ExpendituresPieChart"
+                    Grid.Row="0"
+                    PeriodInfo="27.03.2024 - 27.04.2024"/>
+                <Button 
+                    Grid.Row="1"
+                    Text="Подробнее"
+                    Style="{StaticResource DetailedButton}"/>
             </Grid>
         </Border>
     </Grid>

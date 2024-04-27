@@ -3,42 +3,30 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MyFinance.Controls.PieChart"
              SizeChanged="ContentView_SizeChanged">
-    <Grid>
-        <Grid
-            x:Name="InfoLayout"
-            HorizontalOptions="Center">
-            
-        </Grid>
-        <Grid
+    <ContentView.Resources>
+        <Style x:Key="InfoLabelStyle" TargetType="Label">
+            <Setter Property="HorizontalOptions" Value="Center"/>
+            <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Secondary_Light}, Dark={StaticResource Secondary_Dark}}"/>
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="Margin" Value="0,5"/>
+        </Style>
+    </ContentView.Resources>
+    <Grid x:Name="MainLayout">
+        <VerticalStackLayout
+            HorizontalOptions="Center"
+            VerticalOptions="Center">
+            <Label 
+                x:Name="InfoPeriod"
+                Style="{StaticResource InfoLabelStyle}"
+                FontSize="16"/>
+            <Label 
+                x:Name="InfoSum"
+                Style="{StaticResource InfoLabelStyle}"
+                FontSize="30"/>
+        </VerticalStackLayout>
+        <Grid 
             x:Name="PathLayout"
-            HorizontalOptions="Center">
-            <!--<Path
-                Stroke="Red"
-                StrokeThickness="10">
-                <Path.Data>
-                    <PathGeometry>
-                        <PathFigure StartPoint="100,50">
-                            <PathSegmentCollection>
-                                
-                            </PathSegmentCollection>
-                        </PathFigure>
-                    </PathGeometry>
-                </Path.Data>
-            </Path>
-            <Path
-                Stroke="Aqua"
-                StrokeThickness="10">
-                <Path.Data>
-                    <PathGeometry>
-                        <PathFigure StartPoint="200,150">
-                            <ArcSegment
-                                Point="100,250"
-                                Size="100,100"
-                                SweepDirection="Clockwise"/>
-                        </PathFigure>
-                    </PathGeometry>
-                </Path.Data>
-            </Path>-->
-        </Grid>
+            BackgroundColor="Transparent"
+            Shadow="{StaticResource MainOutterShadow}"/>
     </Grid>
 </ContentView>

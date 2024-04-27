@@ -10,8 +10,6 @@ public partial class PieChart : ContentView
     public PieChart()
 	{
 		InitializeComponent();
-
-        //Center = new Point(OuterRadius, OuterRadius);
     }
 
     private static SolidColorBrush[] Brushes { get; } = new SolidColorBrush[] { 
@@ -20,6 +18,7 @@ public partial class PieChart : ContentView
     };
     private double InnerRadius { get; set; } = 80;
     private double OuterRadius { get; set; } = 100;
+    private double Thickness { get; set; } = 30;
     private double SumVolumes { get; set; } = 0;
     private Point Center { get; set; }
     private double[] Parts { get; set; }
@@ -37,8 +36,27 @@ public partial class PieChart : ContentView
         if (newVolumes.Count <= 0) return;
         if (bindable is not PieChart pc) return;
         pc.UpdateParts();
+        pc.UpdateSumInfo(pc.SumVolumes.ToString());
         pc.UpdateLayout();
     }
+
+
+    public static readonly BindableProperty PeriodInfoProperty = BindableProperty.Create(nameof(PeriodInfo), typeof(string), typeof(PieChart), string.Empty, 
+        propertyChanged: OnPeriodInfoChanged);
+    public string PeriodInfo
+    {
+        get => (string)GetValue(PeriodInfoProperty);
+        set => SetValue(PeriodInfoProperty, value);
+    }
+    private static void OnPeriodInfoChanged(BindableObject bindable, object oldValue, object newValue)
+    {
+        if (newValue is not string newPeriodInfo) return;
+        if (bindable is not PieChart pc) return;
+        pc.UpdatePeriodInfo(newPeriodInfo);
+    }
+
+    private void UpdatePeriodInfo(in string info) => InfoPeriod.Text = info;
+    private void UpdateSumInfo(in string info) => InfoSum.Text = info;
 
     private void UpdateParts()
     {
@@ -52,7 +70,7 @@ public partial class PieChart : ContentView
     {
         PathLayout.Children.Clear();
         double prevAngleRadian = 0, curAngleRadian;
-        if (Parts.Length > 1)
+        if (Parts is not null && Parts.Length > 1)
         {
             for (int i = 0, j = 0; i < Parts.Length; ++i, j = j < Brushes.Length ? j + 1 : 0)
             {
@@ -66,6 +84,7 @@ public partial class PieChart : ContentView
             PathLayout.Children.Add(CreatePath(0, Math.PI, Brushes[0]));
             PathLayout.Children.Add(CreatePath(Math.PI, Math.Tau, Brushes[0]));
         }
+        
     }
 
     private Path CreatePath(in double angleStartPartRadian, in double angleEndPartRadian, in SolidColorBrush brush)
@@ -111,9 +130,9 @@ public partial class PieChart : ContentView
     private void ContentView_SizeChanged(object sender, EventArgs e)
     {
         OuterRadius = Width > Height ? Height / 2 : Width / 2;
-        InnerRadius = OuterRadius - 20;
+        InnerRadius = OuterRadius - Thickness;
         Center = new Point(OuterRadius, OuterRadius);
-        
         UpdateLayout();
+        PathLayout.Margin = new Thickness(Width / 2 - OuterRadius, Height / 2 - OuterRadius);
     }
 }

@@ -4,20 +4,43 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:cont="clr-namespace:MyFinance.Controls">
+    
+    <x:Double x:Key="FontSize_Header">20</x:Double>
+
+    <Shadow 
+        x:Key="MainOutterShadow"
+        Brush="Black"
+        Radius="20"
+        Opacity="0.4"
+        Offset="2,2"/>
+
+    <Shadow
+        x:Key="MainInnerShadow"
+        Brush="White"
+        Radius="20"
+        Opacity="0.4"
+        Offset="-2,-2"/>
+
 
     <Style x:Key="InfoField_Border_Style" TargetType="Border">
         <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource Primary_Light}, Dark={StaticResource Primary_Dark}}"/>
         <Setter Property="Padding" Value="10"/>
         <Setter Property="StrokeShape" Value="{RoundRectangle CornerRadius=10}"/>
-        <Setter Property="Shadow">
-            <Setter.Value>
-                <Shadow 
-                    Brush="Black"
-                    Radius="20"
-                    Opacity="0.4"
-                    Offset="2,2"/>
-            </Setter.Value>
-        </Setter>
+        <Setter Property="Shadow" Value="{StaticResource MainOutterShadow}"/>
+    </Style>
+
+    <Style x:Key="DetailedButton" TargetType="Button">
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource Primary_Light}, Dark={StaticResource Primary_Dark}}"/>
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Secondary_Light}, Dark={StaticResource Secondary_Dark}}"/>
+        <Setter Property="Shadow" Value="{StaticResource MainOutterShadow}"/>
+        <Setter Property="Margin" Value="10"/>
+        <!--<Style.Triggers>
+            <Trigger TargetType="Button" Property="IsPressed" Value="True" >
+                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource Secondary_Light}, Dark={StaticResource Secondary_Dark}}"/>
+                <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Tertiary_Light}, Dark={StaticResource Tertiary_Dark}}"/>
+                <Setter Property="Shadow" Value="{StaticResource MainInnerShadow}"/>
+            </Trigger>
+        </Style.Triggers>-->
     </Style>
 
     <!--<Style x:Key="PieChart_Style" TargetType="cont:PieChart">
