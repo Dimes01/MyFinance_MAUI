@@ -7,35 +7,18 @@
     BackgroundColor="{AppThemeBinding Light={StaticResource Primary_Light}, Dark={StaticResource Primary_Dark}}">
     <Grid
         Padding="10"
-        RowDefinitions="*,*"
         RowSpacing="10">
         <Border
             Grid.Row="0"
             Style="{StaticResource InfoField_Border_Style}">
-            <Grid RowDefinitions="*,Auto">
+            <VerticalStackLayout>
                 <cont:PieChart 
                     x:Name="IncomesPieChart"
-                    Grid.Row="0"
                     PeriodInfo="27.03.2024 - 27.04.2024"/>
-                <Button 
-                    Grid.Row="1"
-                    Text="Подробнее"
-                    Style="{StaticResource DetailedButton}"/>
-            </Grid>
-        </Border>
-        <Border
-            Grid.Row="1"
-            Style="{StaticResource InfoField_Border_Style}">
-            <Grid RowDefinitions="*,Auto">
-                <cont:PieChart 
-                    x:Name="ExpendituresPieChart"
-                    Grid.Row="0"
-                    PeriodInfo="27.03.2024 - 27.04.2024"/>
-                <Button 
-                    Grid.Row="1"
-                    Text="Подробнее"
-                    Style="{StaticResource DetailedButton}"/>
-            </Grid>
+                <CollectionView>
+                    
+                </CollectionView>
+            </VerticalStackLayout>
         </Border>
     </Grid>
 </ContentPage>
