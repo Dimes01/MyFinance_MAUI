@@ -9,8 +9,6 @@ using System.Threading.Tasks;
 
 namespace MyFinance.ViewModels;
 
-public enum TypeTransaction { Incomes, Expenditures };
-
 abstract class TransactionsViewModel : INotifyPropertyChanged
 {
     private ObservableCollection<Transaction> transactions;

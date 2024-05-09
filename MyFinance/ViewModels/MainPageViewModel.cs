@@ -25,7 +25,7 @@ class MainPageViewModel : INotifyPropertyChanged
 		}
 	}
 
-
+	public Command DetailCommand => new(f => { }, f => true);
 
 	public event PropertyChangedEventHandler PropertyChanged;
     protected virtual void OnPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
