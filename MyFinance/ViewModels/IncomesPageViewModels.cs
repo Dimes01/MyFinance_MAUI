@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MyFinance.ViewModels
 {
-    class ExpendituresPageViewModel : TransactionsViewModel
+    class IncomesPageViewModels : TransactionsViewModel
     {
         public override Command AddTransactionCommand => throw new NotImplementedException();
 

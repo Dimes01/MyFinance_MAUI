@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace MyFinance.ViewModels;
 
-class MainPageViewModel : INotifyPropertyChanged
+public enum TypeTransaction { Incomes, Expenditures };
+
+abstract class TransactionsViewModel : INotifyPropertyChanged
 {
-
-
-	private ObservableCollection<Transaction> transactions;
+    private ObservableCollection<Transaction> transactions;
 	public ObservableCollection<Transaction> Transactions
 	{
 		get => transactions;
@@ -25,8 +25,11 @@ class MainPageViewModel : INotifyPropertyChanged
 		}
 	}
 
+	public abstract Command AddTransactionCommand { get; }
+    public abstract Command EditTransactionCommand { get; }
+    public abstract Command RemoveTransactionCommand { get; }
 
 
-	public event PropertyChangedEventHandler PropertyChanged;
+    public event PropertyChangedEventHandler PropertyChanged;
     protected virtual void OnPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 }

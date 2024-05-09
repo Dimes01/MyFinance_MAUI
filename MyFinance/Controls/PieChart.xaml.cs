@@ -48,7 +48,6 @@ public partial class PieChart : ContentView
     }
     private static void OnThicknessPieChartChanged(BindableObject bindable, object oldValue, object newValue)
     {
-        if (newValue is not double newThickness) return;
         if (bindable is not PieChart pc) return;
         pc.UpdateLayout();
     }

@@ -3,8 +3,12 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:cont="clr-namespace:MyFinance.Controls"
+    xmlns:vm="clr-namespace:MyFinance.ViewModels"
     x:Class="MyFinance.Pages.IncomesPage"
     BackgroundColor="{AppThemeBinding Light={StaticResource Primary_Light}, Dark={StaticResource Primary_Dark}}">
+    <ContentPage.BindingContext>
+        <vm:IncomesPageViewModels/>
+    </ContentPage.BindingContext>
     <Grid
         Padding="10"
         RowSpacing="10">
@@ -14,10 +18,22 @@
             <VerticalStackLayout>
                 <cont:PieChart 
                     x:Name="IncomesPieChart"
-                    PeriodInfo="27.03.2024 - 27.04.2024"/>
-                <CollectionView>
-                    
-                </CollectionView>
+                    PeriodInfo="27.03.2024 - 27.04.2024"
+                    HeightRequest="300"/>
+                <Grid ColumnDefinitions="*,*,*">
+                    <Button 
+                        Grid.Column="0"
+                        Text="Добавить"
+                        Style="{StaticResource DetailedButton}"/>
+                    <Button 
+                        Grid.Column="1"
+                        Text="Редактировать"
+                        Style="{StaticResource DetailedButton}"/>
+                    <Button 
+                        Grid.Column="2"
+                        Text="Удалить"
+                        Style="{StaticResource DetailedButton}"/>
+                </Grid>
             </VerticalStackLayout>
         </Border>
     </Grid>
