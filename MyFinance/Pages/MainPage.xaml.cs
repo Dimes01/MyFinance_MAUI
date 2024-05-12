@@ -1,4 +1,4 @@
-﻿namespace MyFinance
+﻿namespace MyFinance.Pages
 {
     public partial class MainPage : ContentPage
     {

@@ -5,6 +5,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:MyFinance"
     xmlns:pages="clr-namespace:MyFinance.Pages">
+    <ShellContent
+        ContentTemplate="{x:DataTemplate pages:ListingPage}"/>
     <TabBar
         Shell.TabBarBackgroundColor="{AppThemeBinding Light={StaticResource Secondary_Light}, Dark={StaticResource Secondary_Dark}}"
         Shell.TabBarTitleColor="{AppThemeBinding Light={StaticResource Tertiary_Light}, Dark={StaticResource Tertiary_Dark}}"
@@ -12,7 +14,7 @@
         <Tab
             Title="Главная"
             Icon="main_tab.svg">
-            <ShellContent ContentTemplate="{x:DataTemplate local:MainPage}"/>
+            <ShellContent ContentTemplate="{x:DataTemplate pages:MainPage}"/>
         </Tab>
         <Tab
             Title="Доходы"
