@@ -4,27 +4,38 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:MyFinance"
-    xmlns:pages="clr-namespace:MyFinance.Pages">
-    <!--<ShellContent
-        ContentTemplate="{x:DataTemplate pages:ListingPage}"/>-->
+    xmlns:pages="clr-namespace:MyFinance.Pages"
+    Shell.FlyoutBehavior="{OnIdiom Desktop=Locked, Phone=Flyout}"
+    FlyoutBackgroundColor="{AppThemeBinding Light={StaticResource Secondary_Light}, Dark={StaticResource Secondary_Dark}}">
+    <ShellContent
+        Title="Loading"
+        ContentTemplate="{x:DataTemplate pages:LoadingPage}"
+        Route="LoadingPage"
+        Shell.FlyoutBehavior="Disabled"
+        Shell.FlyoutItemIsVisible="False"/>
+    <ShellContent
+        Title="Login"
+        ContentTemplate="{x:DataTemplate pages:LoginPage}"
+        Route="LoginPage"
+        Shell.FlyoutBehavior="Disabled"
+        Shell.FlyoutItemIsVisible="False"/>
     <TabBar
+        FlyoutDisplayOptions="AsMultipleItems"
         Shell.TabBarBackgroundColor="{AppThemeBinding Light={StaticResource Secondary_Light}, Dark={StaticResource Secondary_Dark}}"
         Shell.TabBarTitleColor="{AppThemeBinding Light={StaticResource Tertiary_Light}, Dark={StaticResource Tertiary_Dark}}"
-        Shell.TabBarUnselectedColor="{AppThemeBinding Light={StaticResource Primary_Light}, Dark={StaticResource Primary_Dark}}">
-        <Tab
+        Shell.TabBarUnselectedColor="{AppThemeBinding Light={StaticResource Primary_Light}, Dark={StaticResource Primary_Dark}}"
+        Route="Tabs">
+        <ShellContent 
             Title="Главная"
-            Icon="main_tab.svg">
-            <ShellContent ContentTemplate="{x:DataTemplate pages:MainPage}"/>
-        </Tab>
-        <Tab
+            Icon="main_tab.svg"
+            ContentTemplate="{x:DataTemplate pages:MainPage}"/>
+        <ShellContent 
             Title="Доходы"
-            Icon="incomes_tab.svg">
-            <ShellContent ContentTemplate="{x:DataTemplate pages:IncomesPage}"/>
-        </Tab>
-        <Tab
+            Icon="incomes_tab.svg"
+            ContentTemplate="{x:DataTemplate pages:IncomesPage}"/>
+        <ShellContent 
             Title="Расходы"
-            Icon="expenditures_tab.svg">
-            <ShellContent ContentTemplate="{x:DataTemplate pages:ExpendituresPage}"/>
-        </Tab>
+            Icon="expenditures_tab.svg"
+            ContentTemplate="{x:DataTemplate pages:ExpendituresPage}"/>
     </TabBar>
 </Shell>

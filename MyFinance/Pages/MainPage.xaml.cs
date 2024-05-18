@@ -21,8 +21,6 @@ namespace MyFinance.Pages
             //ExpendituresPieChart.Volumes = new() { 3000, 4000, 5000, 1000 };
             ExpendituresPieChart.Volumes = new() { 3000, 4000, 5000, 1000, 500 };
             //ExpendituresPieChart.Volumes = new() { 3000, 4000, 5000, 1000, 500, 1500 };
-
-            authService.Login("", "");
         }
     }
 

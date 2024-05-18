@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
+using MyFinance.Pages;
+using MyFinance.Services;
 
 namespace MyFinance
 {
@@ -18,6 +20,9 @@ namespace MyFinance
 #if DEBUG
     		builder.Logging.AddDebug();
 #endif
+
+            builder.Services.AddTransient<AuthService>();
+            builder.Services.AddTransient<LoadingPage>();
 
             return builder.Build();
         }

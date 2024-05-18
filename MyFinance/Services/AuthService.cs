@@ -12,9 +12,10 @@ public class AuthService
     private HttpClient _httpClient = new();
     private readonly string _baseAddress = "https://localhost:7008/";
 
-    public async Task Register(string email, string password)
+    public async Task<bool> TestAuth()
     {
-        
+        await Task.Delay(2000);
+        return true;
     }
 
     public async Task Login(string email, string password)
