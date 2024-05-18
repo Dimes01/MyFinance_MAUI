@@ -1,7 +1,10 @@
-﻿namespace MyFinance.Pages
+﻿using MyFinance.Services;
+
+namespace MyFinance.Pages
 {
     public partial class MainPage : ContentPage
     {
+        private AuthService authService = new();
         public MainPage()
         {
             InitializeComponent();
@@ -18,6 +21,8 @@
             //ExpendituresPieChart.Volumes = new() { 3000, 4000, 5000, 1000 };
             ExpendituresPieChart.Volumes = new() { 3000, 4000, 5000, 1000, 500 };
             //ExpendituresPieChart.Volumes = new() { 3000, 4000, 5000, 1000, 500, 1500 };
+
+            authService.Login("", "");
         }
     }
 
