@@ -17,7 +17,7 @@ public partial class LoadingPage : ContentPage
         base.OnNavigatedTo(args);
 
         // https://youtu.be/97G-XkuENYE?t=1130 
-        if (await authService.TestAuth())
+        if (await authService.Login("", ""))
         {
             await Shell.Current.GoToAsync($"//Tabs/{nameof(MainPage)}");
         }

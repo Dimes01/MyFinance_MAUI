@@ -1,12 +1,56 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:MyFinance.ViewModels"
              x:Class="MyFinance.Pages.LoginPage"
-             Title="LoginPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to LoginPage!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             BackgroundColor="{AppThemeBinding Light={StaticResource Primary_Light}, Dark={StaticResource Primary_Dark}}">
+    <ContentPage.Resources>
+        <x:Double x:Key="TextSize">20</x:Double>
+        <Style x:Key="Entry_Style" TargetType="Entry">
+            <Setter Property="FontSize" Value="{StaticResource TextSize}"/>
+            <Setter Property="Margin" Value="0"/>
+        </Style>
+        <Style x:Key="Label_Style" TargetType="Label">
+            <Setter Property="VerticalOptions" Value="Center"/>
+            <Setter Property="FontSize" Value="{StaticResource TextSize}"/>
+        </Style>
+    </ContentPage.Resources>
+    <Border
+        BackgroundColor="{AppThemeBinding Light={StaticResource Tertiary_Light}, Dark={StaticResource Tertiary_Dark}}"
+        VerticalOptions="Center"
+        Margin="20"
+        Padding="20">
+        <Border.StrokeShape>
+            <RoundRectangle CornerRadius="20"/>
+        </Border.StrokeShape>
+        <Grid
+            RowDefinitions="Auto,Auto,Auto" RowSpacing="15"
+            ColumnDefinitions="Auto,*" ColumnSpacing="10">
+            <Label
+                Grid.Row="0" Grid.Column="0"
+                Text="E-mail"
+                Style="{StaticResource Label_Style}"/>
+            <Entry
+                Grid.Row="0" Grid.Column="1"
+                Style="{StaticResource Entry_Style}"
+                Text="{Binding Email, Mode=OneWayToSource}"/>
+            <Label
+                Grid.Row="1" Grid.Column="0"
+                Text="Пароль"
+                Style="{StaticResource Label_Style}"/>
+            <Entry
+                Grid.Row="1" Grid.Column="1"
+                Style="{StaticResource Entry_Style}"
+                Text="{Binding PasswordHash, Mode=OneWayToSource}"/>
+            <Button 
+                Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+                Command="{Binding LoginCommand, Mode=OneWay}"
+                BackgroundColor="{AppThemeBinding Light={StaticResource Secondary_Light}, Dark={StaticResource Secondary_Dark}}"
+                Text="Войти"
+                TextColor="{AppThemeBinding Light={StaticResource Primary_Light}, Dark={StaticResource Primary_Dark}}"
+                FontAttributes="Bold"
+                FontSize="20"
+                CornerRadius="7"/>
+        </Grid>
+    </Border>
 </ContentPage>

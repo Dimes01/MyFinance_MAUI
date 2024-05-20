@@ -1,3 +1,6 @@
+using MyFinance.Services;
+using MyFinance.ViewModels;
+
 namespace MyFinance.Pages;
 
 public partial class LoginPage : ContentPage
@@ -5,6 +8,8 @@ public partial class LoginPage : ContentPage
 	public LoginPage()
 	{
 		InitializeComponent();
-		Task.Delay(5000);
+		BindingContext = new LoginPageViewModel(new AuthService());
 	}
+
+
 }

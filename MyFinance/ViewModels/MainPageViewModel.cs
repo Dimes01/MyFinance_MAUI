@@ -11,8 +11,6 @@ namespace MyFinance.ViewModels;
 
 class MainPageViewModel : INotifyPropertyChanged
 {
-
-
 	private ObservableCollection<Transaction> transactions;
 	public ObservableCollection<Transaction> Transactions
 	{
@@ -25,7 +23,12 @@ class MainPageViewModel : INotifyPropertyChanged
 		}
 	}
 
-	public Command DetailCommand => new(f => { }, f => true);
+	public Command DetailCommand => new(async f =>
+	{
+		if (f is not string namePage) return;
+		await Shell.Current.GoToAsync($"//Tabs/{namePage}");
+	});
+
 
 	public event PropertyChangedEventHandler PropertyChanged;
     protected virtual void OnPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

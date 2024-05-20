@@ -14,7 +14,7 @@
         Shell.FlyoutBehavior="Disabled"
         Shell.FlyoutItemIsVisible="False"/>
     <ShellContent
-        Title="Login"
+        Title="Вход"
         ContentTemplate="{x:DataTemplate pages:LoginPage}"
         Route="LoginPage"
         Shell.FlyoutBehavior="Disabled"

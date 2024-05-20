@@ -2,9 +2,13 @@
 <ContentPage 
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:MyFinance.ViewModels"
     xmlns:cont="clr-namespace:MyFinance.Controls"
     x:Class="MyFinance.Pages.MainPage"
     BackgroundColor="{AppThemeBinding Light={StaticResource Primary_Light}, Dark={StaticResource Primary_Dark}}">
+    <ContentPage.BindingContext>
+        <vm:MainPageViewModel/>
+    </ContentPage.BindingContext>
     <Grid
         Padding="10"
         RowDefinitions="*,*"
@@ -25,6 +29,8 @@
                 <Button 
                     Grid.Row="2"
                     Text="Подробнее"
+                    Command="{x:Binding DetailCommand, Mode=OneWay}"
+                    CommandParameter="IncomesPage"
                     Style="{StaticResource DetailedButton}"/>
             </Grid>
         </Border>
@@ -44,6 +50,8 @@
                 <Button 
                     Grid.Row="2"
                     Text="Подробнее"
+                    Command="{x:Binding DetailCommand, Mode=OneWay}"
+                    CommandParameter="ExpendituresPage"
                     Style="{StaticResource DetailedButton}"/>
             </Grid>
         </Border>
