@@ -29,9 +29,11 @@
             VerticalOptions="Center"
             Spacing="10">
             <Button
-                Text="Сохранить"/>
+                Text="Сохранить"
+                Clicked="ButtonSafe_Clicked"/>
             <Button
-                Text="Отменить"/>
+                Text="Отменить"
+                Clicked="ButtonCancel_Clicked"/>
         </HorizontalStackLayout>
     </VerticalStackLayout>
 </ContentPage>

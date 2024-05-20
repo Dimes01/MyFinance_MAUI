@@ -6,7 +6,7 @@
     xmlns:vm="clr-namespace:MyFinance.ViewModels"
     x:Class="MyFinance.Pages.ExpendituresPage">
     <ContentPage.BindingContext>
-        <vm:ExpendituresPageViewModel/>
+        <vm:TransactionsViewModel/>
     </ContentPage.BindingContext>
     <VerticalStackLayout>
         <Label 

@@ -7,7 +7,7 @@
     x:Class="MyFinance.Pages.IncomesPage"
     BackgroundColor="{AppThemeBinding Light={StaticResource Primary_Light}, Dark={StaticResource Primary_Dark}}">
     <ContentPage.BindingContext>
-        <vm:IncomesPageViewModels/>
+        <vm:TransactionsViewModel/>
     </ContentPage.BindingContext>
     <Grid
         Padding="10"
