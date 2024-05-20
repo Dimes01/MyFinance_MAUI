@@ -69,6 +69,12 @@
 	  <MauiXaml Update="Controls\PieChart.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Controls\Property.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\ActionPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Pages\ExpendituresPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

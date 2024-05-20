@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:cont="clr-namespace:MyFinance.Controls"
+    x:Class="MyFinance.Pages.ActionPage"
+    Title="ActionPage">
+    <ContentPage.Resources>
+        <Style x:Key="CommonButton_Style" TargetType="Button">
+
+        </Style>
+    </ContentPage.Resources>
+    <VerticalStackLayout
+        HorizontalOptions="Center"
+        Spacing="10">
+        <cont:Property 
+            x:Name="IdProperty"
+            NameProperty="Id"/>
+        <cont:Property 
+            x:Name="TypeProperty"
+            NameProperty="Type"/>
+        <cont:Property 
+            x:Name="CostProperty"
+            NameProperty="Cost"/>
+        <cont:Property 
+            x:Name="CategoryProperty"
+            NameProperty="Category"/>
+        <HorizontalStackLayout
+            VerticalOptions="Center"
+            Spacing="10">
+            <Button
+                Text="Сохранить"/>
+            <Button
+                Text="Отменить"/>
+        </HorizontalStackLayout>
+    </VerticalStackLayout>
+</ContentPage>
