@@ -8,12 +8,6 @@
     Shell.FlyoutBehavior="{OnIdiom Desktop=Locked, Phone=Flyout}"
     FlyoutBackgroundColor="{AppThemeBinding Light={StaticResource Secondary_Light}, Dark={StaticResource Secondary_Dark}}">
     <ShellContent
-        Title="Loading"
-        ContentTemplate="{x:DataTemplate pages:LoadingPage}"
-        Route="LoadingPage"
-        Shell.FlyoutBehavior="Disabled"
-        Shell.FlyoutItemIsVisible="False"/>
-    <ShellContent
         Title="Вход"
         ContentTemplate="{x:DataTemplate pages:LoginPage}"
         Route="LoginPage"

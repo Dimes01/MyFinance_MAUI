@@ -1,4 +1,5 @@
-﻿using MyFinance.Pages;
+﻿using MyFinance.Models;
+using MyFinance.Pages;
 using MyFinance.Services;
 using System;
 using System.Collections.Generic;
@@ -48,7 +49,8 @@ namespace MyFinance.ViewModels
 
         public Command LoginCommand => new(async f =>
         {
-            if (_authService.Login(Email, PasswordHash).Result)
+            var user = new User { Email = Email, PasswordHash = PasswordHash };
+            if (_authService.Login(user).Result)
             {
                 await Shell.Current.GoToAsync($"//Tabs/{nameof(MainPage)}");
             }

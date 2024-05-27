@@ -22,7 +22,6 @@ namespace MyFinance
 #endif
 
             builder.Services.AddTransient<AuthService>();
-            builder.Services.AddTransient<LoadingPage>();
 
             return builder.Build();
         }
