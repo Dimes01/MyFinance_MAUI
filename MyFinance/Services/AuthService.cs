@@ -12,7 +12,7 @@ public class AuthService
     private HttpClient _httpClient = new();
     private readonly string _baseAddress = 
         DeviceInfo.Platform == DevicePlatform.Android 
-        ? "https://192.168.174.121:7008" 
+        ? "https://192.168.1.3:7008" 
         : "https://localhost:7008";
 
     public async Task<bool> Login(string email, string password)
@@ -33,7 +33,7 @@ public class AuthService
         }
 
         // Debug
-        if (DeviceInfo.Platform == DevicePlatform.Android) return true; 
+        //if (DeviceInfo.Platform == DevicePlatform.Android) return true; 
 
         return false;
     }
