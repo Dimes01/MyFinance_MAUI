@@ -41,6 +41,8 @@ internal class AuthService
         //    Debug.WriteLine($"ОШИБКА!!! --- {ex.Message}");
         //}
 
+        //return false;
+
         return true;
     }
 }
