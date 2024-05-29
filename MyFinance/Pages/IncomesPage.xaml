@@ -54,7 +54,8 @@
                 <CollectionView
                     ItemsSource="{x:Binding Transactions, Mode=OneWay}"
                     ItemTemplate="{StaticResource TemplateTransaction}"
-                    SelectedItem="{x:Binding SelectedTransaction, Mode=OneWayToSource}"/>
+                    SelectedItem="{x:Binding SelectedTransaction, Mode=OneWayToSource}"
+                    SelectionMode="Single"/>
             </VerticalStackLayout>
         </Border>
     </Grid>

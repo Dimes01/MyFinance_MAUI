@@ -12,7 +12,6 @@ public partial class IncomesPage : ContentPage
 	{
 		InitializeComponent();
 		InitBindings();
-		
 	}
 
 	private void InitBindings()
@@ -27,29 +26,42 @@ public partial class IncomesPage : ContentPage
 
 
     private static readonly BindableProperty SelectedTransactionProperty = BindableProperty.Create(nameof(SelectedTransaction), typeof(Transaction), typeof(IncomesPage));
-    private Transaction SelectedTransaction
+    private static readonly BindableProperty ActionTransactionProperty = BindableProperty.Create(nameof(ActionTransaction), typeof(Transaction), typeof(IncomesPage));
+    private static readonly BindableProperty IsMakingTransactionProperty = BindableProperty.Create(nameof(IsMakingTransaction), typeof(bool), typeof(IncomesPage),
+		propertyChanged: OnIsMakingPropertyChanged);
+	private static readonly BindableProperty IsEditingTransactionProperty = BindableProperty.Create(nameof(IsEditingTransaction), typeof(bool), typeof(IncomesPage),
+		propertyChanged: OnIsEditingPropertyChanged);
+    private static readonly BindableProperty IsRemovingTransactionProperty = BindableProperty.Create(nameof(IsRemovingTransaction), typeof(bool), typeof(IncomesPage),
+		propertyChanged: OnIsRemovingTransactionPropertyChanged);
+    
+
+	private Transaction SelectedTransaction
 	{
 		get => (Transaction)GetValue(SelectedTransactionProperty);
 		set => SetValue(SelectedTransactionProperty, value);
 	}
-
-
-    private static readonly BindableProperty ActionTransactionProperty = BindableProperty.Create(nameof(ActionTransaction), typeof(Transaction), typeof(IncomesPage));
     private Transaction ActionTransaction
 	{
 		get => (Transaction)GetValue(ActionTransactionProperty);
 		set => SetValue(ActionTransactionProperty, value);
 	}
-
-
-	private static readonly BindableProperty IsMakingTransactionProperty = BindableProperty.Create(nameof(IsMakingTransaction), typeof(bool), typeof(IncomesPage),
-		propertyChanged: OnIsMakingPropertyChanged);
 	private bool IsMakingTransaction
 	{
 		get => (bool)GetValue(IsMakingTransactionProperty);
 		set => SetValue(IsMakingTransactionProperty, value);
+	}    
+	private bool IsEditingTransaction
+	{
+		get => (bool)GetValue(IsEditingTransactionProperty);
+		set => SetValue(IsEditingTransactionProperty, value);
 	}
-#pragma warning disable CRR0033 // The void async method should be in a try/catch block
+    private bool IsRemovingTransaction
+	{
+		get => (bool)GetValue(IsRemovingTransactionProperty);
+		set => SetValue(IsRemovingTransactionProperty, value);
+	}
+
+
     private async static void OnIsMakingPropertyChanged(BindableObject bindableObject, object oldValue, object newValue)
 	{
         if ((bool)newValue == false) return;
@@ -57,16 +69,7 @@ public partial class IncomesPage : ContentPage
 		var actionPage = new ActionPage(false);
         await page.Navigation.PushAsync(actionPage);
 	}
-#pragma warning restore CRR0033 // The void async method should be in a try/catch block
 
-
-    private static readonly BindableProperty IsEditingTransactionProperty = BindableProperty.Create(nameof(IsEditingTransaction), typeof(bool), typeof(IncomesPage),
-		propertyChanged: OnIsEditingPropertyChanged);
-    private bool IsEditingTransaction
-	{
-		get => (bool)GetValue(IsEditingTransactionProperty);
-		set => SetValue(IsEditingTransactionProperty, value);
-	}
     private static async void OnIsEditingPropertyChanged(BindableObject bindableObject, object oldValue, object newValue)
     {
 		if ((bool)newValue == false) return; 
@@ -77,14 +80,6 @@ public partial class IncomesPage : ContentPage
         await page.Navigation.PushAsync(actionPage);
     }
 
-
-    private static readonly BindableProperty IsRemovingTransactionProperty = BindableProperty.Create(nameof(IsRemovingTransaction), typeof(bool), typeof(IncomesPage),
-		propertyChanged: OnIsRemovingTransactionPropertyChanged);
-    private bool IsRemovingTransaction
-	{
-		get => (bool)GetValue(IsRemovingTransactionProperty);
-		set => SetValue(IsRemovingTransactionProperty, value);
-	}
     private static async void OnIsRemovingTransactionPropertyChanged(BindableObject bindableObject, object oldValue, object newValue)
     {
         if ((bool)newValue == false) return;

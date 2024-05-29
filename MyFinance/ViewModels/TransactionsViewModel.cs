@@ -1,4 +1,5 @@
 ﻿using MyFinance.Models;
+using MyFinance.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -106,6 +107,7 @@ class TransactionsViewModel : INotifyPropertyChanged
 			if (selectedTransaction == value) return;
 			selectedTransaction = value;
 			PositionSelectedTransaction = Transactions.IndexOf(selectedTransaction);
+			ShareData.Transaction = selectedTransaction;
 			OnPropertyChanged(nameof(SelectedTransaction));
 		}
 	}
