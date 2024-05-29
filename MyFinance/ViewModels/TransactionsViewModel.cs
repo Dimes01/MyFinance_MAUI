@@ -17,7 +17,7 @@ class TransactionsViewModel : INotifyPropertyChanged
 	private int PositionSelectedTransaction {  get; set; }
 
 
-    private ObservableCollection<Transaction> transactions;
+    private ObservableCollection<Transaction> transactions = [];
 	public ObservableCollection<Transaction> Transactions
 	{
 		get => transactions;
@@ -82,16 +82,17 @@ class TransactionsViewModel : INotifyPropertyChanged
 	}
 
 
-	private Transaction newTransaction;
-	public Transaction NewTransaction
+	private Transaction actionTransaction;
+	public Transaction ActionTransaction
 	{
-		get => newTransaction;
+		get => actionTransaction;
 		set
 		{
-			if (newTransaction == value) return;
-			newTransaction = value;
+			if (actionTransaction == value) return;
+			actionTransaction = value;
 			ActionWithTransaction();
-			OnPropertyChanged(nameof(NewTransaction));
+			IsMakingTransaction = IsEditingTransaction = IsRemovingTransaction = false;
+			OnPropertyChanged(nameof(ActionTransaction));
 		}
 	}
 
@@ -112,28 +113,36 @@ class TransactionsViewModel : INotifyPropertyChanged
 
 	public Command AddTransactionCommand => new(c => 
 	{ 
-		IsMakingTransaction = true;
 		ActionWithTransaction = AddTransaction; 
+		IsMakingTransaction = true;
 	});
     public Command EditTransactionCommand => new(c => 
 	{
-		IsEditingTransaction = true;
         ActionWithTransaction = EditTransaction;
+		IsEditingTransaction = true;
     });
     public Command RemoveTransactionCommand => new(c => 
 	{
-		IsRemovingTransaction = true;
         ActionWithTransaction = RemoveTransaction;
+		IsRemovingTransaction = true;
     });
 
 
 	private void AddTransaction() 
 	{
-		NewTransaction.Id = NextID++;
-		Transactions.Add(NewTransaction);
+		ActionTransaction.Id = NextID++;
+		Transactions.Add(ActionTransaction);
 	}
-	private void EditTransaction() => Transactions[PositionSelectedTransaction] = SelectedTransaction;
-	private void RemoveTransaction() => Transactions.Remove(SelectedTransaction);
+    private void EditTransaction()
+    {
+        if (ActionTransaction is not null)
+			Transactions[PositionSelectedTransaction] = ActionTransaction;
+    }
+    private void RemoveTransaction()
+    {
+        if (ActionTransaction is not null)
+			Transactions.Remove(ActionTransaction);
+    }
 
 
     public event PropertyChangedEventHandler PropertyChanged;

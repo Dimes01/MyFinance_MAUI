@@ -1,4 +1,6 @@
-﻿namespace MyFinance
+﻿using MyFinance.Pages;
+
+namespace MyFinance
 {
     public partial class App : Application
     {
@@ -6,7 +8,8 @@
         {
             InitializeComponent();
 
-            MainPage = new AppShell();
+            UserAppTheme = AppTheme.Light;
+            MainPage = new NavigationPage(new IncomesPage());
         }
     }
 }

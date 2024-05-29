@@ -1,16 +1,16 @@
 namespace MyFinance.Controls;
 
-public partial class Property : ContentView
+public partial class EntryProperty : ContentView
 {
-	public Property()
+	public EntryProperty()
 	{
 		InitializeComponent();
 	}
 
 
-	private static readonly BindableProperty NamePropertyProperty = BindableProperty.Create(nameof(NameProperty), typeof(string), typeof(Property),
+	private static readonly BindableProperty NamePropertyProperty = BindableProperty.Create(nameof(NameProperty), typeof(string), typeof(EntryProperty),
 		propertyChanged: OnNameChanged);
-    private static readonly BindableProperty ValuePropertyProperty = BindableProperty.Create(nameof(ValueProperty), typeof(string), typeof(Property));
+    private static readonly BindableProperty ValuePropertyProperty = BindableProperty.Create(nameof(ValueProperty), typeof(string), typeof(EntryProperty));
 
 
 	public string NameProperty
@@ -27,7 +27,7 @@ public partial class Property : ContentView
 
 	private static void OnNameChanged(BindableObject bindable, object oldValue, object newValue)
 	{
-		if (bindable is not Property p) return;
+		if (bindable is not EntryProperty p) return;
 		p.Name.Text = newValue as string;
 	}
 

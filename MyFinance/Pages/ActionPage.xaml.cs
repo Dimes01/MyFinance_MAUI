@@ -1,46 +1,44 @@
 using MyFinance.Models;
+using MyFinance.Services;
 
 namespace MyFinance.Pages;
 
 public partial class ActionPage : ContentPage
 {
-    private bool isAdd = false;
-    public Transaction Transaction;
+    private bool _isEdit = true;
 
-	public ActionPage(Transaction transaction = null)
+	public ActionPage(bool isEdit)
 	{
 		InitializeComponent();
-        if (transaction == null)
+        _isEdit = isEdit;
+        if (isEdit == false)
         {
-            isAdd = true;
-            Transaction = new Transaction();
+            ShareData.Transaction = new Transaction();
         }
-        else Transaction = transaction;
 		Init();
 	}
 
 	private void Init()
 	{
-		if (isAdd == false)
+		if (_isEdit)
 		{
-			IdProperty.ValueProperty = Transaction.Id.ToString();
-            TypeProperty.ValueProperty = Transaction.Type.ToString();
-            CostProperty.ValueProperty = Transaction.Cost.ToString();
-            CategoryProperty.ValueProperty = Transaction.Category.ToString();
+            TypeProperty.ValueProperty = ShareData.Transaction.Type.ToString();
+            CostProperty.ValueProperty = ShareData.Transaction.Cost.ToString();
+            CategoryProperty.ValueProperty = ShareData.Transaction.Category.ToString();
         }
     }
 
     private async void ButtonSafe_Clicked(object sender, EventArgs e)
     {
-        Transaction.Id = Convert.ToInt64(IdProperty.ValueProperty);
-        Transaction.Type = TypeProperty.ValueProperty;
-        Transaction.Cost = Convert.ToDouble(CostProperty.ValueProperty);
-        Transaction.Category = CategoryProperty.ValueProperty;
+        ShareData.Transaction.Type = TypeProperty.ValueProperty;
+        ShareData.Transaction.Cost = Convert.ToDouble(CostProperty.ValueProperty);
+        ShareData.Transaction.Category = CategoryProperty.ValueProperty;
         await Navigation.PopAsync();
     }
 
     private async void ButtonCancel_Clicked(object sender, EventArgs e)
     {
+        ShareData.Transaction = null;
         await Navigation.PopAsync();
     }
 }

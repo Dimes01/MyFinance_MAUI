@@ -12,4 +12,5 @@ public class Transaction
     public string Type { get; set; }
     public double Cost { get; set; }
     public string Category { get; set; }
+    public DateTime Date { get; set; }
 }

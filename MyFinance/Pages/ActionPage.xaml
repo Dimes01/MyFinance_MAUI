@@ -4,36 +4,32 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:cont="clr-namespace:MyFinance.Controls"
     x:Class="MyFinance.Pages.ActionPage"
-    Title="ActionPage">
-    <ContentPage.Resources>
-        <Style x:Key="CommonButton_Style" TargetType="Button">
-
-        </Style>
-    </ContentPage.Resources>
+    Title="ActionPage"
+    BackgroundColor="{AppThemeBinding Light={StaticResource Primary_Light}, Dark={StaticResource Primary_Dark}}">
     <VerticalStackLayout
         HorizontalOptions="Center"
+        Margin="0,20"
         Spacing="10">
-        <cont:Property 
-            x:Name="IdProperty"
-            NameProperty="Id"/>
-        <cont:Property 
+        <cont:PickerProperty 
             x:Name="TypeProperty"
-            NameProperty="Type"/>
-        <cont:Property 
+            NameProperty="Тип"/>
+        <cont:EntryProperty 
             x:Name="CostProperty"
-            NameProperty="Cost"/>
-        <cont:Property 
+            NameProperty="Стоимость"/>
+        <cont:EntryProperty 
             x:Name="CategoryProperty"
-            NameProperty="Category"/>
+            NameProperty="Категория"/>
         <HorizontalStackLayout
             VerticalOptions="Center"
             Spacing="10">
             <Button
                 Text="Сохранить"
-                Clicked="ButtonSafe_Clicked"/>
+                Clicked="ButtonSafe_Clicked"
+                Style="{StaticResource DetailedButton}"/>
             <Button
                 Text="Отменить"
-                Clicked="ButtonCancel_Clicked"/>
+                Clicked="ButtonCancel_Clicked"
+                Style="{StaticResource DetailedButton}"/>
         </HorizontalStackLayout>
     </VerticalStackLayout>
 </ContentPage>

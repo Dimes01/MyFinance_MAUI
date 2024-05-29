@@ -24,16 +24,37 @@
                     <Button 
                         Grid.Column="0"
                         Text="Добавить"
-                        Style="{StaticResource DetailedButton}"/>
+                        Style="{StaticResource DetailedButton}"
+                        Command="{x:Binding AddTransactionCommand}"/>
                     <Button 
                         Grid.Column="1"
                         Text="Редактировать"
-                        Style="{StaticResource DetailedButton}"/>
+                        Style="{StaticResource DetailedButton}"
+                        Command="{x:Binding EditTransactionCommand}"/>
                     <Button 
                         Grid.Column="2"
                         Text="Удалить"
-                        Style="{StaticResource DetailedButton}"/>
+                        Style="{StaticResource DetailedButton}"
+                        Command="{x:Binding RemoveTransactionCommand}"/>
                 </Grid>
+                <VerticalStackLayout
+                    IsVisible="Collapse"
+                    HorizontalOptions="Center"
+                    Spacing="10">
+                    <cont:PickerProperty 
+                        x:Name="TypeProperty"
+                        NameProperty="Тип"/>
+                    <cont:EntryProperty 
+                        x:Name="CostProperty"
+                        NameProperty="Стоимость"/>
+                    <cont:EntryProperty 
+                        x:Name="CategoryProperty"
+                        NameProperty="Категория"/>
+                </VerticalStackLayout>
+                <CollectionView
+                    ItemsSource="{x:Binding Transactions, Mode=OneWay}"
+                    ItemTemplate="{StaticResource TemplateTransaction}"
+                    SelectedItem="{x:Binding SelectedTransaction, Mode=OneWayToSource}"/>
             </VerticalStackLayout>
         </Border>
     </Grid>

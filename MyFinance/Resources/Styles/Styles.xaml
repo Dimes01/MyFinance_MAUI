@@ -14,6 +14,25 @@
         Opacity="0.4"
         Offset="2,2"/>
 
+    <DataTemplate x:Key="TemplateTransaction">
+        <Grid
+            RowDefinitions="*,*"
+            ColumnDefinitions="*,*">
+            <Label
+                Grid.Row="0" Grid.Column="0"
+                Text="{Binding Date}"/>
+            <Label
+                Grid.Row="0" Grid.Column="1"
+                Text="{Binding Cost}"/>
+            <Label
+                Grid.Row="1" Grid.Column="0"
+                Text="{Binding Type}"/>
+            <Label
+                Grid.Row="1" Grid.Column="1"
+                Text="{Binding Category}"/>
+        </Grid>
+    </DataTemplate>
+
     <Style x:Key="Header_Label_Style" TargetType="Label">
         <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Secondary_Light}, Dark={StaticResource Secondary_Dark}}"/>
         <Setter Property="FontSize" Value="{StaticResource FontSize_Header}"/>

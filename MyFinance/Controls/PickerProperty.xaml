@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MyFinance.Controls.PickerProperty">
+    <VerticalStackLayout>
+        <Label 
+            x:Name="Name"
+            HorizontalOptions="Center"
+            TextColor="{AppThemeBinding Light={StaticResource Secondary_Light}, Dark={StaticResource Secondary_Dark}}"/>
+        <Picker
+            x:Name="Value"
+            SelectedIndexChanged="Value_SelectedIndexChanged"
+            HorizontalTextAlignment="Center"
+            TextColor="{AppThemeBinding Light={StaticResource Secondary_Light}, Dark={StaticResource Secondary_Dark}}">
+            <Picker.Items>
+                <x:String>Доход</x:String>
+                <x:String>Расход</x:String>
+            </Picker.Items>
+        </Picker>
+    </VerticalStackLayout>
+</ContentView>
