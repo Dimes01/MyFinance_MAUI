@@ -15,23 +15,53 @@
         Offset="2,2"/>
 
     <DataTemplate x:Key="TemplateTransaction">
-        <Grid
-            BackgroundColor="Transparent"
-            RowDefinitions="*,*"
-            ColumnDefinitions="*,*">
-            <Label
-                Grid.Row="0" Grid.Column="0"
-                Text="{Binding Date}"/>
-            <Label
-                Grid.Row="0" Grid.Column="1"
-                Text="{Binding Cost}"/>
-            <Label
-                Grid.Row="1" Grid.Column="0"
-                Text="{Binding Type}"/>
-            <Label
-                Grid.Row="1" Grid.Column="1"
-                Text="{Binding Category}"/>
-        </Grid>
+        <Border
+            Shadow="{x:DynamicResource MainOutterShadow}"
+            StrokeThickness="2"
+            StrokeShape="{RoundRectangle CornerRadius=10}"
+            Padding="5">
+            <Border.Style>
+                <Style TargetType="Border">
+                    <Setter Property="VisualStateManager.VisualStateGroups">
+                        <VisualStateGroupList>
+                            <VisualStateGroup Name="CommonStates">
+                                <VisualState Name="Normal">
+                                    <VisualState.Setters>
+                                        <Setter
+                                            Property="BackgroundColor" 
+                                            Value="{x:AppThemeBinding Light={x:StaticResource Primary_Light}, Dark={x:StaticResource Primary_Dark}}"/>
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState Name="Selected">
+                                    <VisualState.Setters>
+                                        <Setter 
+                                            Property="BackgroundColor"
+                                            Value="{x:AppThemeBinding Light={x:StaticResource Tertiary_Light}, Dark={x:StaticResource Tertiary_Dark}}"/>
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateGroupList>
+                    </Setter>
+                </Style>
+            </Border.Style>
+            <Grid
+                RowDefinitions="*,*"
+                ColumnDefinitions="*,*"
+                IsClippedToBounds="False">
+                <Label
+                    Grid.Row="0" Grid.Column="0"
+                    Text="{Binding Date}"/>
+                <Label
+                    Grid.Row="0" Grid.Column="1"
+                    Text="{Binding Cost}"/>
+                <Label
+                    Grid.Row="1" Grid.Column="0"
+                    Text="{Binding Type}"/>
+                <Label
+                    Grid.Row="1" Grid.Column="1"
+                    Text="{Binding Category}"/>
+            </Grid>
+        </Border>
     </DataTemplate>
 
     <Style x:Key="Header_Label_Style" TargetType="Label">

@@ -9,54 +9,50 @@
     <ContentPage.BindingContext>
         <vm:TransactionsViewModel/>
     </ContentPage.BindingContext>
-    <Grid
-        Padding="10"
-        RowSpacing="10">
-        <Border
-            Grid.Row="0"
-            Style="{StaticResource InfoField_Border_Style}">
-            <VerticalStackLayout>
-                <cont:PieChart 
-                    x:Name="IncomesPieChart"
-                    PeriodInfo="27.03.2024 - 27.04.2024"
-                    HeightRequest="300"/>
-                <Grid ColumnDefinitions="*,*,*">
-                    <Button 
-                        Grid.Column="0"
-                        Text="Добавить"
-                        Style="{StaticResource DetailedButton}"
-                        Command="{x:Binding AddTransactionCommand}"/>
-                    <Button 
-                        Grid.Column="1"
-                        Text="Редактировать"
-                        Style="{StaticResource DetailedButton}"
-                        Command="{x:Binding EditTransactionCommand}"/>
-                    <Button 
-                        Grid.Column="2"
-                        Text="Удалить"
-                        Style="{StaticResource DetailedButton}"
-                        Command="{x:Binding RemoveTransactionCommand}"/>
-                </Grid>
-                <VerticalStackLayout
-                    IsVisible="Collapse"
-                    HorizontalOptions="Center"
-                    Spacing="10">
-                    <cont:PickerProperty 
-                        x:Name="TypeProperty"
-                        NameProperty="Тип"/>
-                    <cont:EntryProperty 
-                        x:Name="CostProperty"
-                        NameProperty="Стоимость"/>
-                    <cont:EntryProperty 
-                        x:Name="CategoryProperty"
-                        NameProperty="Категория"/>
-                </VerticalStackLayout>
-                <CollectionView
-                    ItemsSource="{x:Binding Transactions, Mode=OneWay}"
-                    ItemTemplate="{StaticResource TemplateTransaction}"
-                    SelectedItem="{x:Binding SelectedTransaction, Mode=OneWayToSource}"
-                    SelectionMode="Single"/>
+    <Border
+        Style="{StaticResource InfoField_Border_Style}"
+        Padding="10">
+        <VerticalStackLayout>
+            <cont:PieChart 
+                x:Name="IncomesPieChart"
+                PeriodInfo="27.03.2024 - 27.04.2024"
+                HeightRequest="300"/>
+            <Grid ColumnDefinitions="*,*,*">
+                <Button 
+                    Grid.Column="0"
+                    Text="Добавить"
+                    Style="{StaticResource DetailedButton}"
+                    Command="{x:Binding AddTransactionCommand}"/>
+                <Button 
+                    Grid.Column="1"
+                    Text="Редактировать"
+                    Style="{StaticResource DetailedButton}"
+                    Command="{x:Binding EditTransactionCommand}"/>
+                <Button 
+                    Grid.Column="2"
+                    Text="Удалить"
+                    Style="{StaticResource DetailedButton}"
+                    Command="{x:Binding RemoveTransactionCommand}"/>
+            </Grid>
+            <VerticalStackLayout
+                IsVisible="Collapse"
+                HorizontalOptions="Center"
+                Spacing="10">
+                <cont:PickerProperty 
+                    x:Name="TypeProperty"
+                    NameProperty="Тип"/>
+                <cont:EntryProperty 
+                    x:Name="CostProperty"
+                    NameProperty="Стоимость"/>
+                <cont:EntryProperty 
+                    x:Name="CategoryProperty"
+                    NameProperty="Категория"/>
             </VerticalStackLayout>
-        </Border>
-    </Grid>
+            <CollectionView
+                ItemsSource="{x:Binding Transactions, Mode=OneWay}"
+                ItemTemplate="{StaticResource TemplateTransaction}"
+                SelectedItem="{x:Binding SelectedTransaction, Mode=OneWayToSource}"
+                SelectionMode="Single"/>
+        </VerticalStackLayout>
+    </Border>
 </ContentPage>
