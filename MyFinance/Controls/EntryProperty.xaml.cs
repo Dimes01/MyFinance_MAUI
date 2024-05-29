@@ -10,7 +10,8 @@ public partial class EntryProperty : ContentView
 
 	private static readonly BindableProperty NamePropertyProperty = BindableProperty.Create(nameof(NameProperty), typeof(string), typeof(EntryProperty),
 		propertyChanged: OnNameChanged);
-    private static readonly BindableProperty ValuePropertyProperty = BindableProperty.Create(nameof(ValueProperty), typeof(string), typeof(EntryProperty));
+    private static readonly BindableProperty ValuePropertyProperty = BindableProperty.Create(nameof(ValueProperty), typeof(string), typeof(EntryProperty),
+		propertyChanged: OnValueChanged);
 
 
 	public string NameProperty
@@ -30,6 +31,11 @@ public partial class EntryProperty : ContentView
 		if (bindable is not EntryProperty p) return;
 		p.Name.Text = newValue as string;
 	}
+    private static void OnValueChanged(BindableObject bindable, object oldValue, object newValue)
+    {
+        if (bindable is not EntryProperty p) return;
+        p.Value.Text = newValue as string;
+    }
 
 
     private void Entry_TextChanged(object sender, TextChangedEventArgs e)

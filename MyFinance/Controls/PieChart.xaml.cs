@@ -24,10 +24,39 @@ public partial class PieChart : ContentView
 
 
     public static readonly BindableProperty VolumesProperty = BindableProperty.Create(nameof(Volumes), typeof(List<double>), typeof(PieChart), new List<double>(), propertyChanged: OnVolumesChanged);
+    public static readonly BindableProperty ThicknessPieChartProperty = BindableProperty.Create(nameof(ThicknessPieChart), typeof(double), typeof(PieChart), 25.0, propertyChanged: OnThicknessPieChartChanged);
+    public static readonly BindableProperty PeriodInfoProperty = BindableProperty.Create(nameof(PeriodInfo), typeof(string), typeof(PieChart), string.Empty, 
+        propertyChanged: OnPeriodInfoChanged);
+
+
     public List<double> Volumes
     {
         get => (List<double>)GetValue(VolumesProperty);
         set => SetValue(VolumesProperty, value);
+    }
+    public double ThicknessPieChart
+    {
+        get => (double)GetValue(ThicknessPieChartProperty);
+        set => SetValue(ThicknessPieChartProperty, value);
+    }
+    public string PeriodInfo
+    {
+        get => (string)GetValue(PeriodInfoProperty);
+        set => SetValue(PeriodInfoProperty, value);
+    }
+
+
+    private static void OnThicknessPieChartChanged(BindableObject bindable, object oldValue, object newValue)
+    {
+        if (bindable is not PieChart pc) return;
+        pc.UpdateLayout();
+    }
+
+    private static void OnPeriodInfoChanged(BindableObject bindable, object oldValue, object newValue)
+    {
+        if (newValue is not string newPeriodInfo) return;
+        if (bindable is not PieChart pc) return;
+        pc.UpdatePeriodInfo(newPeriodInfo);
     }
     private static void OnVolumesChanged(BindableObject bindable, object oldValue, object newValue)
     {
@@ -39,33 +68,6 @@ public partial class PieChart : ContentView
         pc.UpdateLayout();
     }
 
-
-    public static readonly BindableProperty ThicknessPieChartProperty = BindableProperty.Create(nameof(ThicknessPieChart), typeof(double), typeof(PieChart), 25.0, propertyChanged: OnThicknessPieChartChanged);
-    public double ThicknessPieChart
-    {
-        get => (double)GetValue(ThicknessPieChartProperty);
-        set => SetValue(ThicknessPieChartProperty, value);
-    }
-    private static void OnThicknessPieChartChanged(BindableObject bindable, object oldValue, object newValue)
-    {
-        if (bindable is not PieChart pc) return;
-        pc.UpdateLayout();
-    }
-
-
-    public static readonly BindableProperty PeriodInfoProperty = BindableProperty.Create(nameof(PeriodInfo), typeof(string), typeof(PieChart), string.Empty, 
-        propertyChanged: OnPeriodInfoChanged);
-    public string PeriodInfo
-    {
-        get => (string)GetValue(PeriodInfoProperty);
-        set => SetValue(PeriodInfoProperty, value);
-    }
-    private static void OnPeriodInfoChanged(BindableObject bindable, object oldValue, object newValue)
-    {
-        if (newValue is not string newPeriodInfo) return;
-        if (bindable is not PieChart pc) return;
-        pc.UpdatePeriodInfo(newPeriodInfo);
-    }
 
     private void UpdatePeriodInfo(in string info) => InfoPeriod.Text = info;
     private void UpdateSumInfo(in string info) => InfoSum.Text = info;

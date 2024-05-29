@@ -9,7 +9,8 @@ public partial class PickerProperty : ContentView
 
     private static readonly BindableProperty NamePropertyProperty = BindableProperty.Create(nameof(NameProperty), typeof(string), typeof(PickerProperty),
         propertyChanged: OnNameChanged);
-    private static readonly BindableProperty ValuePropertyProperty = BindableProperty.Create(nameof(ValueProperty), typeof(string), typeof(PickerProperty));
+    private static readonly BindableProperty ValuePropertyProperty = BindableProperty.Create(nameof(ValueProperty), typeof(string), typeof(PickerProperty),
+        propertyChanged: OnValueChanged);
 
 
     public string NameProperty
@@ -28,6 +29,12 @@ public partial class PickerProperty : ContentView
     {
         if (bindable is not PickerProperty p) return;
         p.Name.Text = newValue as string;
+    }
+    private static void OnValueChanged(BindableObject bindable, object oldValue, object newValue)
+    {
+        if (bindable is not PickerProperty p) return;
+        if (newValue is not string str) return;
+        p.Value.SelectedItem = p.Value.Items.FirstOrDefault(p => p == str);
     }
 
     private void Value_SelectedIndexChanged(object sender, EventArgs e)
