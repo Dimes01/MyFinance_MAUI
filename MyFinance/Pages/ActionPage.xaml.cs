@@ -25,6 +25,7 @@ public partial class ActionPage : ContentPage
             TypeProperty.ValueProperty = ShareData.Transaction.Type.ToString();
             CostProperty.ValueProperty = ShareData.Transaction.Cost.ToString();
             CategoryProperty.ValueProperty = ShareData.Transaction.Category.ToString();
+            DateProperty.ValueProperty = ShareData.Transaction.Date.ToString();
         }
     }
 
@@ -33,6 +34,7 @@ public partial class ActionPage : ContentPage
         ShareData.Transaction.Type = TypeProperty.ValueProperty;
         ShareData.Transaction.Cost = Convert.ToDouble(CostProperty.ValueProperty);
         ShareData.Transaction.Category = CategoryProperty.ValueProperty;
+        ShareData.Transaction.Date = DateTime.Parse(DateProperty.ValueProperty);
         await Navigation.PopAsync();
     }
 

@@ -19,6 +19,9 @@
         <cont:EntryProperty 
             x:Name="CategoryProperty"
             NameProperty="Категория"/>
+        <cont:EntryProperty
+            x:Name="DateProperty"
+            NameProperty="Дата"/>
         <HorizontalStackLayout
             VerticalOptions="Center"
             Spacing="10">
