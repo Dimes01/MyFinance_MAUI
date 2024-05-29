@@ -1,6 +1,7 @@
 ﻿using MyFinance.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -12,10 +13,12 @@ internal class TransactionsToGroupCostConverter : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        if (targetType is not IList<double>) return null;
         if (value is null) return null;
-        var transactions = value as List<Transaction>;
-        var volumes = transactions.GroupBy(x => x.Category).Select(g => (double)(g.Sum(s => s.Cost))).ToList();
+        var transactions = value as Collection<Transaction>;
+        var volumes = transactions
+            .GroupBy(x => x.Category)
+            .Select(g => new VolumesConverted { Category = g.Key, Volume = g.Sum(s => s.Cost) })
+            .ToList();
         return volumes;
     }
 

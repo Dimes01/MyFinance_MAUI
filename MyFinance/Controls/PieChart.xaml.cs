@@ -1,4 +1,5 @@
 using Microsoft.Maui.Controls.Shapes;
+using MyFinance.Models;
 using Color = Microsoft.Maui.Graphics.Color;
 using Path = Microsoft.Maui.Controls.Shapes.Path;
 using Point = Microsoft.Maui.Graphics.Point;
@@ -23,15 +24,17 @@ public partial class PieChart : ContentView
     private double[] Parts { get; set; }
 
 
-    public static readonly BindableProperty VolumesProperty = BindableProperty.Create(nameof(Volumes), typeof(List<double>), typeof(PieChart), new List<double>(), propertyChanged: OnVolumesChanged);
-    public static readonly BindableProperty ThicknessPieChartProperty = BindableProperty.Create(nameof(ThicknessPieChart), typeof(double), typeof(PieChart), 25.0, propertyChanged: OnThicknessPieChartChanged);
+    public static readonly BindableProperty VolumesProperty = BindableProperty.Create(nameof(Volumes), typeof(List<VolumesConverted>), typeof(PieChart), new List<VolumesConverted>(), 
+        propertyChanged: OnVolumesChanged);
+    public static readonly BindableProperty ThicknessPieChartProperty = BindableProperty.Create(nameof(ThicknessPieChart), typeof(double), typeof(PieChart), 25.0, 
+        propertyChanged: OnThicknessPieChartChanged);
     public static readonly BindableProperty PeriodInfoProperty = BindableProperty.Create(nameof(PeriodInfo), typeof(string), typeof(PieChart), string.Empty, 
         propertyChanged: OnPeriodInfoChanged);
 
 
-    public List<double> Volumes
+    public List<VolumesConverted> Volumes
     {
-        get => (List<double>)GetValue(VolumesProperty);
+        get => (List<VolumesConverted>)GetValue(VolumesProperty);
         set => SetValue(VolumesProperty, value);
     }
     public double ThicknessPieChart
@@ -60,7 +63,7 @@ public partial class PieChart : ContentView
     }
     private static void OnVolumesChanged(BindableObject bindable, object oldValue, object newValue)
     {
-        if (newValue is not List<double> newVolumes) return;
+        if (newValue is not List<VolumesConverted> newVolumes) return;
         if (newVolumes.Count <= 0) return;
         if (bindable is not PieChart pc) return;
         pc.UpdateParts();
@@ -74,10 +77,10 @@ public partial class PieChart : ContentView
 
     private void UpdateParts()
     {
-        SumVolumes = Volumes.Sum();
+        SumVolumes = Volumes.Sum(g => g.Volume);
         Parts = new double[Volumes.Count];
         for (int i = 0; i < Volumes.Count; ++i)
-            Parts[i] = Volumes[i] / SumVolumes * Math.Tau;
+            Parts[i] = Volumes[i].Volume / SumVolumes * Math.Tau;
     }
 
     private void UpdateLayout()
