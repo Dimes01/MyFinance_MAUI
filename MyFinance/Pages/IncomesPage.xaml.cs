@@ -17,6 +17,7 @@ public partial class IncomesPage : ContentPage
 	private void InitBindings()
 	{
 		viewModel = BindingContext as TransactionsViewModel;
+		viewModel.IsIncomePage = true;
 		SetBinding(IsMakingTransactionProperty, new Binding { Source = viewModel, Path = nameof(viewModel.IsMakingTransaction), Mode = BindingMode.TwoWay });
 		SetBinding(IsEditingTransactionProperty, new Binding { Source = viewModel, Path = nameof(viewModel.IsEditingTransaction), Mode = BindingMode.TwoWay });
 		SetBinding(IsRemovingTransactionProperty, new Binding { Source = viewModel, Path = nameof(viewModel.IsRemovingTransaction), Mode = BindingMode.TwoWay });
@@ -67,7 +68,14 @@ public partial class IncomesPage : ContentPage
         if ((bool)newValue == false) return;
         if (bindableObject is not IncomesPage page) return;
 		var actionPage = new ActionPage(false);
-        await page.Navigation.PushAsync(actionPage);
+		try
+		{
+            await page.Navigation.PushAsync(actionPage);
+        }
+        catch (Exception)
+		{
+			await page.DisplayAlert("Добавление", "Не удалось перейти на страницу создания транзакции", "Закрыть");
+		}
 	}
 
     private static async void OnIsEditingPropertyChanged(BindableObject bindableObject, object oldValue, object newValue)
@@ -77,7 +85,14 @@ public partial class IncomesPage : ContentPage
 		if (page.SelectedTransaction is null) return;
 		ShareData.Transaction = page.SelectedTransaction;
         var actionPage = new ActionPage(true);
-        await page.Navigation.PushAsync(actionPage);
+        try
+        {
+            await page.Navigation.PushAsync(actionPage);
+        }
+        catch (Exception)
+        {
+            await page.DisplayAlert("Редактирование", "Не удалось перейти на страницу создания транзакции", "Закрыть");
+        }
     }
 
     private static async void OnIsRemovingTransactionPropertyChanged(BindableObject bindableObject, object oldValue, object newValue)
@@ -85,10 +100,18 @@ public partial class IncomesPage : ContentPage
         if ((bool)newValue == false) return;
         if (bindableObject is not IncomesPage page) return;
 		if (page.SelectedTransaction is null) return;
-		if (await page.DisplayAlert("Удаление", "Вы действительно хотите удалить транзакцию?", "Да", "Нет"))
-			page.ActionTransaction = page.SelectedTransaction;
-		else
-			page.ActionTransaction = null;
+		try
+		{
+            if (await page.DisplayAlert("Удаление", "Вы действительно хотите удалить транзакцию?", "Да", "Нет"))
+                page.ActionTransaction = page.SelectedTransaction;
+            else
+                page.ActionTransaction = null;
+        }
+		catch (Exception)
+		{
+			await page.DisplayAlert("Удаление", "Ошибка при удалении", "Закрыть");
+		}
+
     }
 
     protected override void OnAppearing()

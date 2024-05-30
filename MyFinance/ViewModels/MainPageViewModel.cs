@@ -11,8 +11,13 @@ namespace MyFinance.ViewModels;
 
 class MainPageViewModel : INotifyPropertyChanged
 {
-	private ObservableCollection<Transaction> transactions;
-	public ObservableCollection<Transaction> Transactions
+	private ObservableCollection<Transaction> transactions = [
+        new Transaction { Id = 1, Type = "Доход", Cost = 6500, Category = "Зарплата", Date = DateTime.Parse("05.06.2024 12:05:42") },
+        new Transaction { Id = 2, Type = "Доход", Cost = 5000, Category = "Перевод", Date = DateTime.Parse("04.06.2024 10:05:22") },
+        new Transaction { Id = 3, Type = "Доход", Cost = 3000, Category = "Перевод", Date = DateTime.Parse("03.06.2024 10:05:22") },
+        new Transaction { Id = 4, Type = "Расход", Cost = 3000, Category = "Покупка", Date = DateTime.Parse("06.06.2024 11:05:42") }
+    ];
+    public ObservableCollection<Transaction> Transactions
 	{
 		get => transactions;
 		set
@@ -26,7 +31,17 @@ class MainPageViewModel : INotifyPropertyChanged
 	public Command DetailCommand => new(async f =>
 	{
 		if (f is not string namePage) return;
-		await Shell.Current.GoToAsync($"//Tabs/{namePage}");
+		var navigationParameters = new Dictionary<string, object>
+		{
+			{ nameof(Transactions), Transactions }
+		};
+		try
+		{
+            await Shell.Current.GoToAsync($"//Tabs/{namePage}", false, navigationParameters);
+        }
+        catch (Exception)
+		{
+		}
 	});
 
 

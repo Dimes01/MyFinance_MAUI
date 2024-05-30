@@ -11,7 +11,7 @@
     </ContentPage.BindingContext>
     <Grid
         Padding="10"
-        RowDefinitions="*,*"
+        RowDefinitions="*,*,Auto"
         RowSpacing="10">
         <Border
             Grid.Row="0"
@@ -55,5 +55,9 @@
                     Style="{StaticResource DetailedButton}"/>
             </Grid>
         </Border>
+        <Button
+            Grid.Row="2"
+            Text="Отчёт"
+            Clicked="Button_Clicked"/>
     </Grid>
 </ContentPage>

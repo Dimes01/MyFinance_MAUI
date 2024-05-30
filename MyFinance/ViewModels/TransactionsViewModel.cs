@@ -10,20 +10,16 @@ using System.Threading.Tasks;
 
 namespace MyFinance.ViewModels;
 
-class TransactionsViewModel : INotifyPropertyChanged
+class TransactionsViewModel : INotifyPropertyChanged, IQueryAttributable
 {
 	private delegate void MethodForTransaction();
 	private long NextID { get; set; } = 1;
 	private MethodForTransaction ActionWithTransaction { get; set; }
 	private int PositionSelectedTransaction {  get; set; }
+	public bool IsIncomePage { get; set; }
 
 
-	private ObservableCollection<Transaction> transactions = [
-		new Transaction { Id = 1, Type = "Доход", Cost = 6500, Category = "Зарплата", Date = DateTime.Parse("05.06.2024 12:05:42") },
-		new Transaction { Id = 2, Type = "Доход", Cost = 5000, Category = "Перевод", Date = DateTime.Parse("04.06.2024 10:05:22") },
-        new Transaction { Id = 3, Type = "Доход", Cost = 3000, Category = "Перевод", Date = DateTime.Parse("03.06.2024 10:05:22") },
-        new Transaction { Id = 4, Type = "Расход", Cost = 3000, Category = "Покупка", Date = DateTime.Parse("06.06.2024 11:05:42") }
-	];
+	private ObservableCollection<Transaction> transactions;
 	public ObservableCollection<Transaction> Transactions
 	{
 		get => transactions;
@@ -154,4 +150,10 @@ class TransactionsViewModel : INotifyPropertyChanged
 
     public event PropertyChangedEventHandler PropertyChanged;
     protected virtual void OnPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+
+    public void ApplyQueryAttributes(IDictionary<string, object> query)
+    {
+        if (query.ContainsKey(nameof(Transactions)))
+			Transactions = query[nameof(Transactions)] as ObservableCollection<Transaction>;
+    }
 }

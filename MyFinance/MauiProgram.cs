@@ -22,7 +22,7 @@ namespace MyFinance
 #endif
 
             builder.Services.AddTransient<AuthService>();
-            builder.Services.AddSingleton<ShareData>();
+            //builder.Services.AddSingleton<ShareData>();
 
             return builder.Build();
         }
