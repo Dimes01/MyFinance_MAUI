@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MyFinance.ViewModels;
 
-class MainPageViewModel : INotifyPropertyChanged
+public class MainPageViewModel : INotifyPropertyChanged
 {
 	private ObservableCollection<Transaction> transactions = [
         new Transaction { Id = 1, Type = "Доход", Cost = 6500, Category = "Зарплата", Date = DateTime.Parse("05.06.2024 12:05:42") },

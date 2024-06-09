@@ -6,9 +6,6 @@
     xmlns:cont="clr-namespace:MyFinance.Controls"
     x:Class="MyFinance.Pages.MainPage"
     BackgroundColor="{AppThemeBinding Light={StaticResource Primary_Light}, Dark={StaticResource Primary_Dark}}">
-    <ContentPage.BindingContext>
-        <vm:MainPageViewModel/>
-    </ContentPage.BindingContext>
     <Grid
         Padding="10"
         RowDefinitions="*,*,Auto"

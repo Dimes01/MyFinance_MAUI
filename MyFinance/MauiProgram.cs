@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using MyFinance.Pages;
 using MyFinance.Services;
+using MyFinance.ViewModels;
 
 namespace MyFinance
 {
@@ -22,7 +23,8 @@ namespace MyFinance
 #endif
 
             builder.Services.AddTransient<AuthService>();
-            //builder.Services.AddSingleton<ShareData>();
+            builder.Services.AddSingleton<ShareData>();
+            builder.Services.AddSingleton<MainPageViewModel>();
 
             return builder.Build();
         }
