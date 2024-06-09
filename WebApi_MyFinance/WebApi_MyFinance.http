@@ -1,7 +1,0 @@
-@WebAPI_MyFinance_HostAddress = http://localhost:5243
-
-GET {{WebAPI_MyFinance_HostAddress}}/login/users
-Accept: application/json
-
-###
-
