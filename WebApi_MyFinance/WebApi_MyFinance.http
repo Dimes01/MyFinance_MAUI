@@ -1,6 +1,7 @@
-@WebApi_MyFinance_HostAddress = http://localhost:5114
+@WebAPI_MyFinance_HostAddress = http://localhost:5243
 
-GET {{WebApi_MyFinance_HostAddress}}/weatherforecast/
+GET {{WebAPI_MyFinance_HostAddress}}/login/users
 Accept: application/json
 
 ###
+
