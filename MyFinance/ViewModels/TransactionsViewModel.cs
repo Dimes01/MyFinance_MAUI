@@ -10,13 +10,14 @@ using System.Threading.Tasks;
 
 namespace MyFinance.ViewModels;
 
-class TransactionsViewModel : INotifyPropertyChanged, IQueryAttributable
+class TransactionsViewModel(ShareData shareData) : INotifyPropertyChanged, IQueryAttributable
 {
 	private delegate void MethodForTransaction();
-	private long NextID { get; set; } = 1;
-	private MethodForTransaction ActionWithTransaction { get; set; }
-	private int PositionSelectedTransaction {  get; set; }
-	public bool IsIncomePage { get; set; }
+	private ShareData _shareData = shareData;
+	private long NextID = 1;
+	private MethodForTransaction ActionWithTransaction;
+	private int PositionSelectedTransaction;
+	public bool IsIncomePage;
 
 
 	private ObservableCollection<Transaction> transactions;
@@ -108,7 +109,7 @@ class TransactionsViewModel : INotifyPropertyChanged, IQueryAttributable
 			if (selectedTransaction == value) return;
 			selectedTransaction = value;
 			PositionSelectedTransaction = Transactions.IndexOf(selectedTransaction);
-			ShareData.Transaction = selectedTransaction;
+			_shareData.Transaction = selectedTransaction;
 			OnPropertyChanged(nameof(SelectedTransaction));
 		}
 	}

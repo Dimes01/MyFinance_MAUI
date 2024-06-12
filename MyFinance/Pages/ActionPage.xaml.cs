@@ -3,44 +3,50 @@ using MyFinance.Services;
 
 namespace MyFinance.Pages;
 
-public partial class ActionPage : ContentPage
+public partial class ActionPage : ContentPage, IQueryAttributable
 {
     private bool _isEdit = true;
+    private readonly ShareData _shareData;
 
-	public ActionPage(bool isEdit)
+	public ActionPage(ShareData shareData)
 	{
 		InitializeComponent();
-        _isEdit = isEdit;
-        if (isEdit == false)
-        {
-            ShareData.Transaction = new Transaction();
-        }
+        _shareData = shareData;
 		Init();
 	}
 
 	private void Init()
 	{
-		if (_isEdit)
+        if (_isEdit)
 		{
-            TypeProperty.ValueProperty = ShareData.Transaction.Type.ToString();
-            CostProperty.ValueProperty = ShareData.Transaction.Cost.ToString();
-            CategoryProperty.ValueProperty = ShareData.Transaction.Category.ToString();
-            DateProperty.ValueProperty = ShareData.Transaction.Date.ToString();
+            TypeProperty.ValueProperty = _shareData.Transaction.Type.ToString();
+            CostProperty.ValueProperty = _shareData.Transaction.Cost.ToString();
+            CategoryProperty.ValueProperty = _shareData.Transaction.Category.ToString();
+            DateProperty.ValueProperty = _shareData.Transaction.Date.ToString();
+        }
+        else
+        {
+            _shareData.Transaction = new Transaction();
         }
     }
 
     private async void ButtonSafe_Clicked(object sender, EventArgs e)
     {
-        ShareData.Transaction.Type = TypeProperty.ValueProperty;
-        ShareData.Transaction.Cost = Convert.ToDouble(CostProperty.ValueProperty);
-        ShareData.Transaction.Category = CategoryProperty.ValueProperty;
-        ShareData.Transaction.Date = DateTime.Parse(DateProperty.ValueProperty);
+        _shareData.Transaction.Type = TypeProperty.ValueProperty;
+        _shareData.Transaction.Cost = Convert.ToDouble(CostProperty.ValueProperty);
+        _shareData.Transaction.Category = CategoryProperty.ValueProperty;
+        _shareData.Transaction.Date = DateTime.Parse(DateProperty.ValueProperty);
         await Navigation.PopAsync();
     }
 
     private async void ButtonCancel_Clicked(object sender, EventArgs e)
     {
-        ShareData.Transaction = null;
+        _shareData.Transaction = null;
         await Navigation.PopAsync();
+    }
+
+    public void ApplyQueryAttributes(IDictionary<string, object> query)
+    {
+        _isEdit = (bool)query["IsEdit"];
     }
 }

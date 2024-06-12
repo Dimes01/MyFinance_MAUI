@@ -37,7 +37,7 @@ public class MainPageViewModel : INotifyPropertyChanged
 		};
 		try
 		{
-            await Shell.Current.GoToAsync($"//Tabs/{namePage}", false, navigationParameters);
+            await Shell.Current.GoToAsync($"//Tabs/{namePage}", navigationParameters);
         }
         catch (Exception)
 		{

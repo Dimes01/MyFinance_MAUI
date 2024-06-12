@@ -4,15 +4,17 @@ using MyFinance.ViewModels;
 
 namespace MyFinance.Pages;
 
-public partial class IncomesPage : ContentPage
+public partial class IncomesPage : ContentPage, IQueryAttributable
 {
 	private TransactionsViewModel viewModel;
-
-	public IncomesPage()
+    private readonly ShareData shareData;
+	
+	public IncomesPage(ShareData shareData)
 	{
 		InitializeComponent();
 		InitBindings();
-	}
+        this.shareData = shareData;
+    }
 
 	private void InitBindings()
 	{
@@ -34,9 +36,8 @@ public partial class IncomesPage : ContentPage
 		propertyChanged: OnIsEditingPropertyChanged);
     private static readonly BindableProperty IsRemovingTransactionProperty = BindableProperty.Create(nameof(IsRemovingTransaction), typeof(bool), typeof(IncomesPage),
 		propertyChanged: OnIsRemovingTransactionPropertyChanged);
-    
 
-	private Transaction SelectedTransaction
+    private Transaction SelectedTransaction
 	{
 		get => (Transaction)GetValue(SelectedTransactionProperty);
 		set => SetValue(SelectedTransactionProperty, value);
@@ -67,10 +68,13 @@ public partial class IncomesPage : ContentPage
 	{
         if ((bool)newValue == false) return;
         if (bindableObject is not IncomesPage page) return;
-		var actionPage = new ActionPage(false);
+		var parameters = new Dictionary<string, object>
+		{
+			{ "IsEdit", false }
+		};
 		try
 		{
-            await page.Navigation.PushAsync(actionPage);
+			await Shell.Current.GoToAsync($"../ActionPage", parameters);
         }
         catch (Exception)
 		{
@@ -83,11 +87,14 @@ public partial class IncomesPage : ContentPage
 		if ((bool)newValue == false) return; 
         if (bindableObject is not IncomesPage page) return;
 		if (page.SelectedTransaction is null) return;
-		ShareData.Transaction = page.SelectedTransaction;
-        var actionPage = new ActionPage(true);
+		page.shareData.Transaction = page.SelectedTransaction;
+        var parameters = new Dictionary<string, object>
+        {
+            { "IsEdit", true }
+        };
         try
         {
-            await page.Navigation.PushAsync(actionPage);
+            await Shell.Current.GoToAsync($"../ActionPage", parameters);
         }
         catch (Exception)
         {
@@ -114,8 +121,10 @@ public partial class IncomesPage : ContentPage
 
     }
 
-    protected override void OnAppearing()
+    public void ApplyQueryAttributes(IDictionary<string, object> query)
     {
-		ActionTransaction = ShareData.Transaction;
+		ActionTransaction = query.ContainsKey("Transactions") 
+			? query["Transactions"] as Transaction 
+			: new Transaction();
     }
 }

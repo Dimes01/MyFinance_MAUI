@@ -5,9 +5,11 @@ namespace MyFinance.Pages;
 
 public partial class MainPage : ContentPage
 {
+    private MainPageViewModel viewModel;
     public MainPage(MainPageViewModel viewModel)
     {
         InitializeComponent();
+        this.viewModel = viewModel;
         BindingContext = viewModel;
         //IncomesPieChart.Volumes = new() { 3000 };
         //IncomesPieChart.Volumes = new() { 4000, 3000 };
@@ -26,6 +28,17 @@ public partial class MainPage : ContentPage
 
     private async void Button_Clicked(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new ReportPage((BindingContext as MainPageViewModel).Transactions));
+        var parameters = new Dictionary<string, object>
+        {
+            { nameof(viewModel.Transactions), viewModel.Transactions }
+        };
+        try
+        {
+            await Shell.Current.GoToAsync($"../{nameof(ReportPage)}", parameters);
+        }
+        catch (Exception)
+        {
+            await DisplayAlert("Отчёт", "Не получилось перейти на страницу с отчётом", "Закрыть");
+        }
     }
 }
